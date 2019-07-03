@@ -9,9 +9,21 @@
     <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Olá, seja bem vindo ao Gerenciador de Tarefas!</h1>
-
-    <p th:text="${mensagem}"></p>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="#" class="navbar-brand">Gerenciador de tarefas</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-app">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar-app">
+            <div class="navbar-nav">
+                <a href="/" class="nav-item nav-link">Home</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <p>Olá, seja bem vindo ao Gerenciador de Tarefas!</p>
+        <p th:text="${mensagem}"></p>
+    </div>
 
     <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
