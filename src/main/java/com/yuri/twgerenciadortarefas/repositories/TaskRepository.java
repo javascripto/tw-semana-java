@@ -1,4 +1,10 @@
 package com.yuri.twgerenciadortarefas.repositories;
 
-public interface TaskRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.yuri.twgerenciadortarefas.models.Task;
+
+
+public interface TaskRepository extends JpaRepository<Task, Long> {
+
 }
