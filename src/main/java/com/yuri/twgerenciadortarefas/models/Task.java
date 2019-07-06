@@ -1,8 +1,11 @@
 package com.yuri.twgerenciadortarefas.models;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
+
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -22,9 +25,12 @@ public class Task {
     private Long id;
 
     @Column(name="tar_titulo", length=50, nullable=false)
+    @NotNull(message="O título é obrigatório")
+    @Length(max=50, min=3, message="O Título deve conter entre 3 e 50 caracteres")
     private String title;
 
     @Column(name="tar_descricao", length=100)
+    @Length(max=100, message="A descrição deve conter até 100 caracteres")
     private String description;
 
     @Column(name="tar_data_expiracao", nullable=false)

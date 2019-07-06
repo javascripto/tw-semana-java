@@ -16,18 +16,27 @@
     <form action="/tasks/insert" method="POST" class="form-horizontal" th:object="${task}">
         <div class="row">
             <div class="form-group col-md-6">
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('title')}">
+                    <label th:errors="*{title}" class="validation-message"></label>
+                </div>
                 <label for="title">Título</label>
                 <input id="title" type="text" required maxlength="50" class="form-control" th:field="*{title}">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-6">
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('description')}">
+                    <label th:errors="*{description}" class="validation-message"></label>
+                </div>
                 <label>Descrição</label>
                 <input type="text" maxlength="100" class="form-control" th:field="*{description}">
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-6">
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('expirationDate')}">
+                    <label th:errors="*{expirationDate}" class="validation-message"></label>
+                </div>
                 <label>Data de expiração</label>
                 <input type="date" required class="form-control" th:field="*{expirationDate}">
             </div>

@@ -1,14 +1,19 @@
 package com.yuri.twgerenciadortarefas.controllers;
 
-import com.yuri.twgerenciadortarefas.models.Task;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yuri.twgerenciadortarefas.models.Task;
 import com.yuri.twgerenciadortarefas.repositories.TaskRepository;
+
+import java.util.Date;
+import javax.validation.Valid;
 
 
 @Controller
@@ -34,8 +39,23 @@ public class TaskController {
     }
 
     @PostMapping("/insert")
-    public String create(Task task) {
-        taskRepository.save(task);
-        return "redirect:/tasks/list";
+    public ModelAndView create(@Valid Task task, BindingResult result) {
+        ModelAndView mv = new ModelAndView("tasks/insert");
+        if (task.getExpirationDate().before(new Date())) {
+            result.rejectValue(
+                    "expirationDate",
+                    "task.invalidExpirationDate",
+                    "A data de expiração não pode ser anterior à data atual."
+            );
+        }
+        if (!result.hasErrors()) {
+            mv.setViewName("redirect:/tasks/list");
+            taskRepository.save(task);
+            return mv;
+        }
+        mv.addObject("task", task);
+        mv.setStatus(HttpStatus.UNPROCESSABLE_ENTITY);
+        return mv;
+
     }
 }
