@@ -21,6 +21,11 @@
                     <div class="card-text" th:text="${task.description}"></div>
                     <div class="card-text" th:text="${'Data de expiração: ' + #dates.format(task.expirationDate, 'dd/MM/yyyy') }"></div>
                 </div>
+                <div class="card-footer bg-light">
+                    <p>
+                        <a th:href="@{/tasks/update/{id}(id=${task.id})}">Alterar</a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
