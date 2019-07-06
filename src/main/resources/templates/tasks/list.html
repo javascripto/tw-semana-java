@@ -13,8 +13,8 @@
 
     <div class="container">
         <h3>Listagem de tarefas</h3>
-
-        <div th:each="task : ${tasks}">
+        <a href="/tasks/insert" class="btn btn-success">Inserir nova tarefa</a>
+        <div th:each="task : ${tasks}" class="m-3">
             <div class="card bg-light mb-3">
                 <div class="card-header" th:text="${task.title}"></div>
                 <div class="card-body">

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gerenciador de tarefas - Inclusão de nova tarefa</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="fragments/fragments :: cabecalho"></div>
+
+<div class="container">
+    <h3>Inserção de nova tarefa</h3>
+    <form action="/tasks/insert" method="POST" class="form-horizontal" th:object="${task}">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="title">Título</label>
+                <input id="title" type="text" required maxlength="50" class="form-control" th:field="*{title}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label>Descrição</label>
+                <input type="text" maxlength="100" class="form-control" th:field="*{description}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label>Data de expiração</label>
+                <input type="date" required class="form-control" th:field="*{expirationDate}">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
+</div>
+
+<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,5 +1,7 @@
 package com.yuri.twgerenciadortarefas.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 import javax.persistence.Id;
@@ -15,7 +17,7 @@ import javax.persistence.GenerationType;
 public class Task {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="tar_id")
     private Long id;
 
@@ -26,6 +28,7 @@ public class Task {
     private String description;
 
     @Column(name="tar_data_expiracao", nullable=false)
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date expirationDate;
 
     @Column(name="tar_concluida")
