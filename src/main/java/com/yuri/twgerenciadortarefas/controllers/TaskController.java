@@ -100,4 +100,18 @@ public class TaskController {
         mv.setStatus(HttpStatus.UNPROCESSABLE_ENTITY);
         return mv;
     }
+
+    @GetMapping("/remove/{id}")
+    public String removeTask(@PathVariable("id") Long id) {
+        taskRepository.deleteById(id);
+        return "redirect:/tasks/list";
+    }
+
+    @GetMapping("/close/{id}")
+    public String closeTask(@PathVariable("id") Long id) {
+        Task task = taskRepository.getOne(id);
+        task.setDone(true);
+        taskRepository.save(task);
+        return "redirect:/tasks/list";
+    }
 }
