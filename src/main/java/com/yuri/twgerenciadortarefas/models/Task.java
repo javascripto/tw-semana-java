@@ -20,7 +20,7 @@ import javax.persistence.GenerationType;
 public class Task {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="tar_id")
     private Long id;
 
