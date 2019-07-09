@@ -31,27 +31,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .jdbcAuthentication()
-                .usersByUsernameQuery(userQuery)
-                .authoritiesByUsernameQuery(roleQuery)
-                .dataSource(dataSource)
-                .passwordEncoder(passwordEncoder);
+            .jdbcAuthentication()
+            .usersByUsernameQuery(userQuery)
+            .authoritiesByUsernameQuery(roleQuery)
+            .dataSource(dataSource)
+            .passwordEncoder(passwordEncoder);
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/registration").permitAll()
-                .anyRequest()
-                    .authenticated()
-                        .and().csrf().disable()
-                    .formLogin()
-                        .loginPage("/login").failureUrl("/login?error=true").defaultSuccessUrl("/")
-                        .usernameParameter("email").passwordParameter("password")
-                    .and().logout()
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
+            .authorizeRequests()
+            .antMatchers("/login").permitAll()
+            .antMatchers("/registration").permitAll()
+            .anyRequest()
+                .authenticated()
+                    .and().csrf().disable()
+                .formLogin()
+                    .loginPage("/login").failureUrl("/login?error=true").defaultSuccessUrl("/")
+                    .usernameParameter("email").passwordParameter("password")
+                .and().logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
     }
 
     @Override

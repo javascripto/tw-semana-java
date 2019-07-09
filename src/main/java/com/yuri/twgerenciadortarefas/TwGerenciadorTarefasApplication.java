@@ -9,6 +9,7 @@ public class TwGerenciadorTarefasApplication {
 	// maven spring-boot:run
 	// ./mvnw spring-boot:run
 	// gradle run
+	// trigamação impedância orm
 	public static void main(String[] args) {
 		SpringApplication.run(TwGerenciadorTarefasApplication.class, args);
 	}
