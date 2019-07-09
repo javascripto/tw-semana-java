@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gerenciador de tarefas - Login</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="cabecalho">
+        <a href="#" class="navbar-brand">Gerenciador de tarefas - Login</a>
+    </nav>
+
+
+    <div class="container">
+        <h3>Login</h3>
+        <form action="/login" method="POST" class="form-signin">
+            <div class="form-group">
+                <div class="col-md-6">
+                    <input type="text" required class="form-control" placeholder="E-mail" name="email">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-6">
+                    <input type="password" required class="form-control" placeholder="Senha" name="password">
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+            <div class="form-group">
+                <div class="col-md-9">
+                    <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                        Não foi possível fazer login
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <span>Não possui conta? <a href="/registration">Registre-se aqui</a></span>
+            </div>
+        </form>
+    </div>
+
+    <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
