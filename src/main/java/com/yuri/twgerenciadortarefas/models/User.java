@@ -1,10 +1,13 @@
 package com.yuri.twgerenciadortarefas.models;
 
+import java.util.List;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Entity;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -31,6 +34,17 @@ public class User {
     @NotNull(message="A senha é obrigatória")
     private String password;
 
+    @OneToMany(mappedBy="user", fetch= FetchType.LAZY)
+    private List<Task> tasks;
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public User setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+        return this;
+    }
 
     public Long getId() {
         return id;

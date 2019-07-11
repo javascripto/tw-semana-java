@@ -1,20 +1,23 @@
 package com.yuri.twgerenciadortarefas.controllers;
 
+import java.util.Date;
+import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
+import com.yuri.twgerenciadortarefas.services.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yuri.twgerenciadortarefas.models.User;
 import com.yuri.twgerenciadortarefas.models.Task;
 import com.yuri.twgerenciadortarefas.repositories.TaskRepository;
-
-import java.util.Date;
-import javax.validation.Valid;
 
 
 @Controller
@@ -24,11 +27,15 @@ public class TaskController {
     @Autowired
     private TaskRepository taskRepository;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/list")
-    public ModelAndView list() {
+    public ModelAndView list(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("tasks/list");
-        mv.addObject("tasks", taskRepository.findAll());
+        String userEmail = request.getUserPrincipal().getName();
+        mv.addObject("tasks", taskRepository.getTasksByUser(userEmail));
         return mv;
     }
 
@@ -40,7 +47,7 @@ public class TaskController {
     }
 
     @PostMapping("/insert")
-    public ModelAndView create(@Valid Task task, BindingResult result) {
+    public ModelAndView create(@Valid Task task, BindingResult result, HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("tasks/insert");
         if (task.getExpirationDate() == null) {
             result.rejectValue(
@@ -58,6 +65,9 @@ public class TaskController {
         }
         if (!result.hasErrors()) {
             mv.setViewName("redirect:/tasks/list");
+            String userEmail = request.getUserPrincipal().getName();
+            User loggedInUser = userService.findByEmail(userEmail);
+            task.setUser(loggedInUser);
             taskRepository.save(task);
             return mv;
         }

@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -40,6 +43,18 @@ public class Task {
     @Column(name="tar_concluida")
     private Boolean done = false;
 
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name="usr_id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public Task setUser(User user) {
+        this.user = user;
+        return this;
+    }
 
     public Long getId() {
         return id;
@@ -94,3 +109,10 @@ public class Task {
 //     tar_data_expiracao date not null,
 //     tar_concluida bit default,
 // );
+
+
+//ALTER TABLE tar_tarefas ADD COLUMN usr_id INT NOT NULL;
+//    ALTER TABLE tar_tarefas
+//    ADD CONSTRAINT fk_tar_tarefas_usr_usuarios
+//    FOREIGN KEY (usr_id)
+//    REFERENCES usr_usuario(usr_id);
